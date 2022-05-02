@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html"%}
+
+{% block body %}
+
+    
+    {% for watch in watchlist %}
+        <ul>
+            <li>
+                {{watch.Title}} <br>
+                {{watch.Description}} <br>
+                {{watch.Category}} <br>
+                {{watch.Starting_Bid}} <br>
+                <a href="{% url 'remove_listing' watch.id %}"> Remove from Watchlist </a>               
+            </li>
+        </ul>
+    {% endfor %}    
+
+
+{% endblock %}

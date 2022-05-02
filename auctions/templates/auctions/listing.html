@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html"%}
+
+{% block body %}
+
+{{ that_listing.Title}} <br>
+{{ that_listing.Description}} <br>
+{{ that_listing.Category}} <br>
+{{ that_listing.Starting_Bid}} <br>
+<img src="{{ that_listing.Image }}">
+
+<a href="{% url 'add_listing' that_listing.id %}"> Add to Watchlist </a>
+
+<!-- if the user is the one who created the listing:
+            they can close the listing 
+            go to the close_auction view to close
+-->
+
+{% if user == owner %}
+    <form action="{% url 'close_auction' that_listing.id %}" method="post"> 
+        {%csrf_token%}
+        <button>Close this Listing</button>
+    </form>
+    
+{% endif %} 
+
+
+{% endblock %}
+
