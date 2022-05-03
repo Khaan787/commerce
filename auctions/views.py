@@ -49,10 +49,11 @@ def listing(request, listing_id):
     print(listing)
     print(user)
     print(owner)
+    print(request.user)
 
     return render(request, "auctions/listing.html", {
         "that_listing": listing,
-        "user": user,
+        "user": request.user,
         "owner": owner
     })
 
