@@ -22,6 +22,9 @@
             <input type="submit" value="Bid">
         </form>
 
+        {% if user %}
+                <p> You have won this Auction.</p>
+        {% endif %}
 
         <br><br><br>
     {% endfor %}   

@@ -129,9 +129,15 @@ def close_auction(request,listing_id):
 
     if request.method == "POST":
         listing.Auction_closed = True
-        # Disable the Bids on the Listing And display an Error message such as "The auction is Closed"
+        
+    if listing.Auction_closed == True:
+        # Disable "Place a bid:" form on the Listing Page And display an Error message such as "The auction is Closed"
+        
 
-
+        # The index page of the user who made the request should get a message of "You won the Bid" on That Listing
+        return render(request, "auctions/index.html",{
+            "user" : request.user
+        })
 
 
 
