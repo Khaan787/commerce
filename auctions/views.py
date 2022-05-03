@@ -24,8 +24,7 @@ def create(request):
             Description = request.POST["description"],
             Category = request.POST["category"],
             Starting_Bid = request.POST["starting_bid"],
-            Image = request.POST["image"],
-            watchlist = User.objects.get(pk=request.user.id),
+            Image = request.POST["image"],            
             listing_owner = User.objects.get(pk=request.user.id)
             
 
@@ -33,6 +32,7 @@ def create(request):
 
         listing.save()
         listing.watchlist.add(request.user)
+        listing.save()
 
 
         return HttpResponseRedirect(reverse("index"))
@@ -49,10 +49,11 @@ def listing(request, listing_id):
     print(listing)
     print(user)
     print(owner)
+    print(request.user)
 
     return render(request, "auctions/listing.html", {
         "that_listing": listing,
-        "user": user,
+        "user": request.user,
         "owner": owner
     })
 
