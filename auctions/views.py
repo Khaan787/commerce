@@ -131,14 +131,12 @@ def close_auction(request,listing_id):
     if request.method == "POST":
         listing.Auction_closed = True
         
-    if listing.Auction_closed == True:
-        # Disable "Place a bid:" form on the Listing Page And display an Error message such as "The auction is Closed"
-        
-        # IF the user is the one who has made the highest bid on the auction i.e. request.user
+        # IF the user is the one who has made the highest bid on the auction i.e. if Starting_bid == bid_placed_by that User on that Listing 
         # The index page of the user who made the request should get a message of "You won the Bid" on That Listing
 
         return render(request, "auctions/index.html",{
-            "user" : request.user
+            "user" : request.user,
+            "listing": listing
         })
 
 

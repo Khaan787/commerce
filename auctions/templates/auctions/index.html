@@ -16,13 +16,17 @@
             </a>
         </ul> 
 
-       
-        <form action="{% url 'bid_placed' listing.id %}" method="post">
-            {% csrf_token %}
-            Place a bid: <input type="number" name="bid_amount">
-            <input type="submit" value="Bid">
-        </form>
-      
+        {% if listing.Auction_closed == True %}
+            <form action="{% url 'bid_placed' listing.id %}" method="post">
+                {% csrf_token %}
+                Place a bid: <input type="number" name="bid_amount">
+                <input type="submit" value="Bid">
+            </form>
+        
+        {% else %}
+            The Auction has been Closed.
+
+        {% endif %}
 
         <br><br><br>
     {% endfor %}   
