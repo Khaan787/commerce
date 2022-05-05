@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    {% for listing in listings%}
+    {% for listing in listings%}        
         <ul>
             <a href="{% url 'listing' listing.id %}">
                 <li>
@@ -15,12 +15,14 @@
                 </li>
             </a>
         </ul> 
-        
+
+       
         <form action="{% url 'bid_placed' listing.id %}" method="post">
             {% csrf_token %}
             Place a bid: <input type="number" name="bid_amount">
             <input type="submit" value="Bid">
         </form>
+      
 
         <br><br><br>
     {% endfor %}   
