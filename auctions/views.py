@@ -25,7 +25,8 @@ def create(request):
             Category = request.POST["category"],
             Starting_Bid = request.POST["starting_bid"],
             Image = request.POST["image"],            
-            listing_owner = User.objects.get(pk=request.user.id)
+            listing_owner = User.objects.get(pk=request.user.id),
+            Auction_closed = False
             
 
         )
@@ -128,8 +129,11 @@ def bid_placed(request,listing_id):
 def close_auction(request,listing_id):
     listing = Listing.objects.get(pk=listing_id)
 
+    
     if request.method == "POST":
         listing.Auction_closed = True
+
+        listing.save()
         
         # IF the user is the one who has made the highest bid on the auction i.e. if Starting_bid == bid_placed_by that User on that Listing 
         # The index page of the user who made the request should get a message of "You won the Bid" on That Listing
