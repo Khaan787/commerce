@@ -44,18 +44,14 @@ def create(request):
 @login_required
 def listing(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
-    user = User.objects.get(pk=request.user.id),
+    user = User.objects.get(pk=request.user.id)
     owner = listing.listing_owner
-
-    print(listing)
-    print(user)
-    print(owner)
-    print(request.user)
-
+    
+    
     return render(request, "auctions/listing.html", {
         "that_listing": listing,
         "user": request.user,
-        "owner": owner
+        "owner": owner,
     })
 
 
@@ -128,19 +124,47 @@ def bid_placed(request,listing_id):
 @login_required
 def close_auction(request,listing_id):
     listing = Listing.objects.get(pk=listing_id)
+    starting_Bid = listing.Starting_Bid  
+    Bids = Bid.objects.all()
+    Bids_on_listing = listing.bids.all()    
+    Bids_amounts =listing.bids.values_list('Bid_amount', flat=True)
+    Bids_Placers = listing.bids.values_list('bid_placed_by', flat=True)        
 
+    Highest_bid = None
+    winner_object = None
+    winner = None
+    
+    print("listing:", listing)
+    print("Bids:", Bids)
+    print("Bids_on_listing:", Bids_on_listing)
+    print("Bids_amounts: ", Bids_amounts)
+    print("Bids_Placers:", Bids_Placers)
+    
     
     if request.method == "POST":
         listing.Auction_closed = True
-
         listing.save()
-        
-        # IF the user is the one who has made the highest bid on the auction i.e. if Starting_bid == bid_placed_by that User on that Listing 
-        # The index page of the user who made the request should get a message of "You won the Bid" on That Listing
 
+        # Find which Bid_amount is == to the Starting_Bid i.e which Bid_amount is the Highest Bid placed 
+        # Find the corresponding bid_placed_by of that Bid_amount
+        for i in Bids_amounts:
+            if i == starting_Bid:
+                Highest_bid = i
+                print("Highest_bid:", Highest_bid)
+
+                winner_query = Bid.objects.filter(Bid_amount=Highest_bid)
+                winner_object = Bid.objects.get(Bid_amount=Highest_bid)
+                winner = winner_object.bid_placed_by
+
+                print("winner_query:", winner_query)
+                print("winner_object:", winner_object)
+                print("winner:", winner)
+      
+        # The index page of the Highest bidder should get a message of "You won the Bid" on That Listing
         return render(request, "auctions/index.html",{
             "user" : request.user,
-            "listing": listing
+            "listing": listing,
+            "winner": winner
         })
 
 

@@ -15,9 +15,13 @@
             </a>        
                     <br><br>
 
-                    {% if listing.Auction_closed == False %}
-                       
-                        
+                    {% if listing.Auction_closed == True and winner %}
+                    
+                            <p> You have won this Auction.</p>
+                      
+
+                    {% elif listing.Auction_closed == False %}
+                                              
                         <form action="{% url 'bid_placed' listing.id %}" method="post">
                             {% csrf_token %}
                             Place a bid: <input type="number" name="bid_amount">
@@ -38,8 +42,6 @@
 
 <br>
         
-{% if user %}
-    <p> You have won this Auction.</p>
-{% endif %}   
+
 
 {% endblock %}
