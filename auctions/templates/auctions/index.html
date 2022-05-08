@@ -15,8 +15,13 @@
             </a>        
                     <br><br>
 
+                    <p> User: {{user}} </p>
+                    <p> Owner: {{owner}} </p>
+                    <p> Auction closed: {{ listing.Auction_closed }} </p>
+                    <p> Winner: {{ winner }}</p>
+
                     {% if listing.Auction_closed == True and winner %}
-                    
+
                             <p> You have won this Auction.</p>
                       
 
@@ -38,7 +43,7 @@
         </ul> 
     {% endfor %}    
    
-{{listing.Auction_closed}}
+
 
 <br>
         

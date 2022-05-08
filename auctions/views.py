@@ -52,6 +52,7 @@ def listing(request, listing_id):
         "that_listing": listing,
         "user": request.user,
         "owner": owner,
+        
     })
 
 
@@ -128,7 +129,8 @@ def close_auction(request,listing_id):
     Bids = Bid.objects.all()
     Bids_on_listing = listing.bids.all()    
     Bids_amounts =listing.bids.values_list('Bid_amount', flat=True)
-    Bids_Placers = listing.bids.values_list('bid_placed_by', flat=True)        
+    Bids_Placers = listing.bids.values_list('bid_placed_by', flat=True)
+    owner = listing.listing_owner     
 
     Highest_bid = None
     winner_object = None
@@ -159,14 +161,15 @@ def close_auction(request,listing_id):
                 print("winner_query:", winner_query)
                 print("winner_object:", winner_object)
                 print("winner:", winner)
+                print("owner:", owner)
       
         # The index page of the Highest bidder should get a message of "You won the Bid" on That Listing
-        return render(request, "auctions/index.html",{
-            "user" : request.user,
-            "listing": listing,
-            "winner": winner
-        })
-
+                return render(request, "auctions/index.html",{
+                    "listing": listing,
+                    "user" : request.user,
+                    "owner": owner,          
+                    "winner": winner
+                })
 
 
 
