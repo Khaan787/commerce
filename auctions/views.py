@@ -164,12 +164,12 @@ def close_auction(request,listing_id):
                 print("owner:", owner)
       
         # The index page of the Highest bidder should get a message of "You won the Bid" on That Listing
-                return render(request, "auctions/index.html",{
-                    "listing": listing,
-                    "user" : request.user,
-                    "owner": owner,          
-                    "winner": winner
-                })
+    return render(request, "auctions/index.html",{
+        "listing": listing,
+        "user" : request.user,
+        "owner": owner,          
+        "winner": winner
+    })
 
 
 

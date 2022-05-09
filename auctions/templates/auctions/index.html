@@ -20,7 +20,7 @@
                     <p> Auction closed: {{ listing.Auction_closed }} </p>
                     <p> Winner: {{ winner }}</p>
 
-                    {% if listing.Auction_closed == True and winner %}
+                    {% if listing.Auction_closed == True and user == winner %}
 
                             <p> You have won this Auction.</p>
                       
