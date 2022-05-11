@@ -12,10 +12,6 @@
 
 <br><br>
 
-<p> User: {{user}} </p>
-<p> Owner: {{owner}} </p>
-<p> Auction closed: {{ that_listing.Auction_closed }} </p>
-
 {% if user == owner and that_listing.Auction_closed == False %}
     <form action="{% url 'close_auction' that_listing.id %}" method="post"> 
         {%csrf_token%}
