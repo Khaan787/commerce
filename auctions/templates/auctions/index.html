@@ -16,11 +16,12 @@
                     <br><br>
 
                     <p> User: {{user}} </p>
-                    <p> Owner: {{owner}} </p>
+                    <p> Owner: {{listing.listing_owner}} </p>
+                    <p> Winner: {{ listing.listing_winner }}</p>
                     <p> Auction closed: {{ listing.Auction_closed }} </p>
-                    <p> Winner: {{ winner }}</p>
+                    
 
-                    {% if listing.Auction_closed == True %}
+                    {% if listing.Auction_closed == True and user == listing.listing_winner %}
 
                             <p> You have won this Auction.</p>
                       

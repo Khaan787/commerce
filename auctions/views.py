@@ -14,6 +14,7 @@ from .models import Listing,User,Bid
 def index(request):    
     return render(request, "auctions/index.html", {
         "listings": Listing.objects.all(),
+        "user": request.user
     })
     
 @login_required
@@ -153,7 +154,6 @@ def close_auction(request,listing_id):
             if i == starting_Bid:
                 Highest_bid = i
                 
-
                 winner_query = Bid.objects.filter(Bid_amount=Highest_bid)
                 winner_object = Bid.objects.get(Bid_amount=Highest_bid)
                 winner = winner_object.bid_placed_by
@@ -168,12 +168,7 @@ def close_auction(request,listing_id):
                 
       
         # The index page of the Highest bidder should get a message of "You won the Bid" on That Listing
-        return render(request, "auctions/close.html",{
-            "listing": listing,
-            "user" : request.user,
-            "owner": owner,          
-            "winner": listing.listing_winner
-        })
+        return HttpResponseRedirect(reverse("index"))
 
 
 
