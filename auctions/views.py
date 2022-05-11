@@ -161,7 +161,6 @@ def close_auction(request,listing_id):
                 listing.listing_winner = winner
                 listing.save()
 
-
                 print("winner_query:", winner_query)
                 print("winner_object:", winner_object)
                 print("winner:", winner)
