@@ -152,7 +152,7 @@ def close_auction(request,listing_id):
         for i in Bids_amounts:
             if i == starting_Bid:
                 Highest_bid = i
-                print("Highest_bid:", Highest_bid)
+                
 
                 winner_query = Bid.objects.filter(Bid_amount=Highest_bid)
                 winner_object = Bid.objects.get(Bid_amount=Highest_bid)
@@ -161,6 +161,7 @@ def close_auction(request,listing_id):
                 listing.listing_winner = winner
                 listing.save()
 
+                print("Highest_bid:", Highest_bid)
                 print("winner_query:", winner_query)
                 print("winner_object:", winner_object)
                 print("winner:", winner)
