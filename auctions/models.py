@@ -15,6 +15,7 @@ class Listing(models.Model):
     Auction_closed = models.BooleanField(default=False)
     watchlist = models.ManyToManyField(User, blank= True, related_name="watcher")
     listing_owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name="owner",null=True)
+    listing_winner = models.ForeignKey(User,on_delete=models.CASCADE,related_name="winner", null=True)
 
     #def bid(self):
         #return self.Starting_Bid

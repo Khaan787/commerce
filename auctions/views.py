@@ -141,7 +141,7 @@ def close_auction(request,listing_id):
     print("Bids_on_listing:", Bids_on_listing)
     print("Bids_amounts: ", Bids_amounts)
     print("Bids_Placers:", Bids_Placers)
-    
+    print("owner:", owner)
     
     if request.method == "POST":
         listing.Auction_closed = True
@@ -158,18 +158,22 @@ def close_auction(request,listing_id):
                 winner_object = Bid.objects.get(Bid_amount=Highest_bid)
                 winner = winner_object.bid_placed_by
 
+                listing.listing_winner = winner
+                listing.save()
+
+
                 print("winner_query:", winner_query)
                 print("winner_object:", winner_object)
                 print("winner:", winner)
-                print("owner:", owner)
+                
       
         # The index page of the Highest bidder should get a message of "You won the Bid" on That Listing
-    return render(request, "auctions/index.html",{
-        "listing": listing,
-        "user" : request.user,
-        "owner": owner,          
-        "winner": winner
-    })
+        return render(request, "auctions/close.html",{
+            "listing": listing,
+            "user" : request.user,
+            "owner": owner,          
+            "winner": listing.listing_winner
+        })
 
 
 
