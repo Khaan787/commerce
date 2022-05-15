@@ -26,3 +26,8 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
     bid_placed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bid_placer", null=True)
 
+
+class Comment(models.Model):
+    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name="writer")
+    content = models.CharField(max_length=1000)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_comments")

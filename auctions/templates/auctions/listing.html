@@ -25,6 +25,24 @@
     
 {% endif %} 
 
+<br><br>
+
+
+{% for i in that_listing.listing_comments.all %}
+
+<h6><strong>{{ i.author }}</strong> says:</h6>
+<p> {{ i.content }}</p>
+
+{% endfor %}
+
+<br>
+
+<form action="{% url 'listing_comment' that_listing.id %}" method="post">
+    {%csrf_token%}
+    Comments Section: <br><br> 
+    <textarea name="comment" cols="100" rows="3"></textarea> <br>
+    <input type="submit" value="Submit">
+</form>
 
 {% endblock %}
 

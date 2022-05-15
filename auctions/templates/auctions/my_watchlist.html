@@ -5,13 +5,15 @@
     
     {% for watch in watchlist %}
         <ul>
-            <li>
-                {{watch.Title}} <br>
-                {{watch.Description}} <br>
-                {{watch.Category}} <br>
-                {{watch.Starting_Bid}} <br>
-                <a href="{% url 'remove_listing' watch.id %}"> Remove from Watchlist </a>               
-            </li>
+            <a href="{% url 'listing' watch.id %}">
+                <li>
+                    {{watch.Title}} <br>
+                    {{watch.Description}} <br>
+                    {{watch.Category}} <br>
+                    {{watch.Starting_Bid}} <br>
+                    <a href="{% url 'remove_listing' watch.id %}" style="color:red;"> Remove from Watchlist </a>               
+                </li>
+            </a>    
         </ul>
     {% endfor %}    
 

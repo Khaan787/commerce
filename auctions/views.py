@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import Listing,User,Bid
+from .models import Listing,User,Bid,Comment
 
 
 def index(request):    
@@ -171,6 +171,46 @@ def close_auction(request,listing_id):
         return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
+def listing_comment(request, listing_id):
+        if request.method == "POST":
+            this_listing = Listing.objects.get(pk=listing_id)
+            comment_content = request.POST["comment"]
+
+            comment = Comment(
+                author = request.user,
+                content = comment_content,
+                listing = this_listing
+
+            )
+
+            print(comment.author)
+            print(comment.content)
+            print(comment.listing)
+
+            comment.save()
+            
+            
+            return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
+
+
+
+def categories(request):
+    listings = Listing.objects.all()
+    list_of_categories= listings.values_list('Category', flat = True)
+    same_category = None
+
+    print("List of Categories:",list_of_categories)
+
+    #loop through all the listings
+    #if they have the same category, put them in one category
+    for category in list_of_categories:
+        print(category)
+
+    return render(request, "auctions/categories.html",{
+        "listings": listings
+    })
+    
 
 
 
