@@ -198,16 +198,32 @@ def listing_comment(request, listing_id):
 def categories(request):
     listings = Listing.objects.all()
     list_of_categories = listings.values_list('Category', flat=True).distinct()
-    
-
-    
-
-    
 
     return render(request, "auctions/categories.html",{
         "listings": listings, 
         "list_of_categories": list_of_categories,
     })
+    
+
+def category_listings(request, category):
+    listings = Listing.objects.all()
+    same_category_listings = []
+
+    # loop through all the listings
+    for listing in listings:
+        # if the listing category is equal to the one clicked then display all the relevant listings
+        if listing.Category == category:
+            same_category_listings.append(listing)
+            print("listing: ", listing)
+            print("listing.Category: ",listing.Category)
+            print("category: ",category)
+            print("same_category_listings: ", same_category_listings)
+
+    return render(request, "auctions/category_listings.html",{
+        "same_category_listings": same_category_listings
+    })
+
+
     
 
 
